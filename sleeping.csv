@@ -1,0 +1,11 @@
+Date,Hours,Quality,Exercise,Caffeine,Light_Sleep,Deep_Sleep,REM_Sleep
+22-12-2444,4.0,4,False,False,4.0,4.0,4.0
+23-12-2444,6.0,5,True,True,3.5,2.0,0.5
+24-12-2444,7.5,3,False,True,4.0,2.5,1.0
+25-12-2444,8.0,4,True,False,4.5,3.0,0.5
+26-12-2444,5.5,2,False,True,3.0,1.5,1.0
+27-12-2444,6.5,4,True,False,3.5,2.5,0.5
+28-12-2444,7.0,5,True,True,4.0,2.5,0.5
+29-12-2444,4.5,3,False,False,3.0,1.0,0.5
+30-12-2444,5.0,4,True,False,3.5,1.0,0.5
+31-12-2444,6.0,5,True,True,4.0,2.0,1.0
