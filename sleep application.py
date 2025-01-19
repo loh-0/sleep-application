@@ -2,6 +2,7 @@ from datetime import datetime
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 import pandas as pd 
+import matplotlib.pyplot as plt
 
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
@@ -86,6 +87,28 @@ def model_sleep():
 
     print(linear_model.coef_)
 
+def visualise_sleep():
+
+    """
+
+    Function that provides a very simple visual representation of the data collected. It will display the data and the sleep quality and present this
+    as a simple line graph.
+
+    """
+    # setting up plot
+    plt.plot(sleep_df['Date'], sleep_df['Quality'], label='Sleep Quality')
+    plt.xlabel('Date')
+    plt.ylabel('Quality')
+    plt.title('Sleep Quality Over Time')
+
+    # adding a legend, displaying a grid and adjusting the x axis spacing
+    plt.legend()
+    plt.grid(True)
+    plt.xticks(rotation=45)
+
+    plt.show()
+
+
 
 def read_data():
     
@@ -96,6 +119,7 @@ def read_data():
         
     global sleep_df # required to access the global variable sleep_df, otherwise it will create a local variable
     print("Warning! Read Data will Override any existing data you have entered.")
+    Tk().withdraw()
     # UsingTkinter we can open a file dialog to allow user to select their csv file
     file_name = askopenfilename(title="Select a CSV File",filetypes=[("CSV Files", "*.csv"), ("All Files", "*.*")])
     if not file_name:
@@ -148,14 +172,16 @@ def main():
         elif option == "5":
             model_sleep()
 
-        # elif option == "6":
-        #     visualise_sleep()
+        elif option == "6":
+            visualise_sleep()
      
         elif option == "7":
             print("Closing...")
             break
         else:
             print("Invalid Selection.")
+
+    
 
 
 if __name__ == "__main__":
