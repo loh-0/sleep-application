@@ -85,7 +85,19 @@ def model_sleep():
     # Create our model
     linear_model = LinearRegression().fit(X_scaled, y)
 
-    print(linear_model.coef_)
+    coefficients_df = pd.DataFrame({'Feature': X.columns,'Coefficient': linear_model.coef_}) # create a df for the coefficients 
+
+    print(coefficients_df)
+
+    features = X.columns 
+    coefficients = linear_model.coef_
+    max_idx = coefficients.argmax() 
+
+    # Get the feature with the highest influence
+    max_feature = features[max_idx]
+    max_coef = coefficients[max_idx]
+
+    print(f"\n{max_feature} has the most positive influence on sleep rating")
 
 def visualise_sleep():
 
