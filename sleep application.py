@@ -25,7 +25,8 @@ def log_sleep():
     """
     date_valid = False
     hours_valid = False
-    sleep_stages_valid = False 
+    sleep_stages_valid = False
+    quality_valid = False 
 
     # booleans variables that determines whether acceptable user input has been received or not 
 
@@ -37,27 +38,26 @@ def log_sleep():
             datetime.strptime(date, "%d-%m-%Y")
             date_valid = True
         except ValueError:
-            print("Error. Please enter in DD-MM-YYYY")
+            print("Error! Please enter in DD-MM-YYYY")
 
-    
     while not hours_valid:
         try:
             hours = float(input("Enter total hours slept: "))
             if hours < 0:
-                raise ValueError("Error. Invalid hours entered")
+                raise ValueError("Error! Invalid hours entered")
             hours_valid = True
         except ValueError:
-            print(f"Error. Please enter a valid number of hours.")
+            print(f"Error! Please enter a valid number of hours.")
 
     # Check for valid sleep rating
     while not quality_valid:
         try:
             quality = int(input("Rate Sleep Quality from 1–5: "))
             if quality not in range(1, 6):
-                raise ValueError("Quality must be an integer between 1 and 5.")
+                raise ValueError("Quality must be between 1 and 5")
             quality_valid = True
         except ValueError:
-            print(f"Error. Please enter a valid ratings between 1 and 5 ")
+            print(f"Error! Please enter a valid ratings between 1 and 5 ")
 
     # Input prompts for exercise rating, will default to false if user does not enter an appropriate value 
     exercise = input("Exercised Today? (Y/N): ").strip().lower() == "y"
@@ -74,11 +74,10 @@ def log_sleep():
                 raise ValueError("Please enter a valid number of hours in each stage")
             total_sleep_stage_hours = light_sleep + deep_sleep + rem_sleep # ensures the hours match for consistency
             if total_sleep_stage_hours != hours:
-                raise ValueError(f"Total sleep stages ({total_sleep_stage_hours}) do not match total hours slept ({hours}).")
+                raise ValueError(f"Error! {total_sleep_stage_hours} sleep stages hours is not inconsistent {hours} entered.")
             sleep_stages_valid = True
         except ValueError:
-            print(f"Error. Please enter a valid number of hours for each stage")
-
+            print(f"Error! Please enter a valid number of hours for each stage")
 
     # entries stored as an entry in the sleep df
     sleep_df.loc[len(sleep_df)] = [date, hours, quality, exercise, caffeine, light_sleep, deep_sleep, rem_sleep]
@@ -168,7 +167,7 @@ def read_data():
     
     """
     The function is responsible for reading the data into the df. Uses Tkinter to display a pop up to make this process idea. We use the basic .read_csv() method enter the data easily.
-    
+    This function overrides any existing data in the df currently.
     """
         
     global sleep_df # required to access the global variable sleep_df, otherwise it will create a local variable
