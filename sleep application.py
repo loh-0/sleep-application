@@ -20,22 +20,64 @@ def log_sleep():
 
     Function to log the users sleep. The function requests that the user enter the data of their sleep, the hours they slept, the quality of their sleep,
     whether or not they exercises and had caffeine and the respective hours spent in each sleep cycle. Using the pandas library we store the data in a df 
-    to easily perform our linear regression later
+    to easily perform our linear regression later. Basic while loops are used to valid the input from the user.
 
     """
+    date_valid = False
+    hours_valid = False
+    sleep_stages_valid = False 
 
-    date = input("Enter the date (DD-MM-YYYY): ")
-    datetime.strptime(date, "%d-%m-%Y")
-    hours = float(input("Enter total hours slept: "))
-    quality = int(input("Rate Sleep Quality (1-5): "))
+    # booleans variables that determines whether acceptable user input has been received or not 
+
+
+    # Check for valid date
+    while not date_valid:
+        date = input("Enter the date of sleep in DD-MM-YYYY: ")
+        try:
+            datetime.strptime(date, "%d-%m-%Y")
+            date_valid = True
+        except ValueError:
+            print("Error. Please enter in DD-MM-YYYY")
+
+    
+    while not hours_valid:
+        try:
+            hours = float(input("Enter total hours slept: "))
+            if hours < 0:
+                raise ValueError("Error. Invalid hours entered")
+            hours_valid = True
+        except ValueError:
+            print(f"Error. Please enter a valid number of hours.")
+
+    # Check for valid sleep rating
+    while not quality_valid:
+        try:
+            quality = int(input("Rate Sleep Quality from 1–5: "))
+            if quality not in range(1, 6):
+                raise ValueError("Quality must be an integer between 1 and 5.")
+            quality_valid = True
+        except ValueError:
+            print(f"Error. Please enter a valid ratings between 1 and 5 ")
+
+    # Input prompts for exercise rating, will default to false if user does not enter an appropriate value 
     exercise = input("Exercised Today? (Y/N): ").strip().lower() == "y"
     caffeine = input("Caffeine Consumed Today? (Y/N): ").strip().lower() == "y"
 
-    print("Enter hours spent in each sleep stage:")
-
-    light_sleep = float(input("Light sleep hours: "))
-    deep_sleep = float(input("Deep sleep hours: "))
-    rem_sleep = float(input("REM sleep hours: "))
+    # validation for sleep stages input 
+    while not sleep_stages_valid:
+        try:
+            print("Enter hours spent in each sleep stage:")
+            light_sleep = float(input("Light sleep hours: "))
+            deep_sleep = float(input("Deep sleep hours: "))
+            rem_sleep = float(input("REM sleep hours: "))
+            if light_sleep < 0 or deep_sleep < 0 or rem_sleep < 0:
+                raise ValueError("Please enter a valid number of hours in each stage")
+            total_sleep_stage_hours = light_sleep + deep_sleep + rem_sleep # ensures the hours match for consistency
+            if total_sleep_stage_hours != hours:
+                raise ValueError(f"Total sleep stages ({total_sleep_stage_hours}) do not match total hours slept ({hours}).")
+            sleep_stages_valid = True
+        except ValueError:
+            print(f"Error. Please enter a valid number of hours for each stage")
 
 
     # entries stored as an entry in the sleep df
