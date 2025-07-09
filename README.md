@@ -25,7 +25,6 @@ A simple python program that can be used for storing sleep information, visualis
 ### Notes
 - Sometimes the pop up for file selection doesn't appear on screen if VScode is in full screen but it should show up in some window
 - To test the modelling and visualisation read in the sample sleeping.csv file 
-- Not much input validation was done so apologies for any problems that may come up for unexpected input
 
 
 
